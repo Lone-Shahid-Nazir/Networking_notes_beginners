@@ -1,0 +1,218 @@
+# Networking Notes
+### Foundations of Networking and Cybersecurity Architecture
+
+---
+
+## Introduction to Networking in Cybersecurity
+
+**Networking is the foundation of all cyber attacks and defenses.** An attacker must use a network to breach a system, and a defender must secure that same network to protect it.
+
+**Why it matters:**
+- **Visibility** — provides a clear map of a company's architecture, ISPs, IPs, and connected devices
+- **Incident Response** — essential for quarantining affected systems during attacks like ransomware
+- **History** — in the 1960s the US Military created ARPANET, the world's first network, to allow secure data sharing between systems
+
+---
+
+## Network Fundamentals
+
+### Network Types
+| Type | Full Name | Example |
+|---|---|---|
+| LAN | Local Area Network | Office or home |
+| MAN | Metropolitan Area Network | City-wide cell towers |
+| WAN | Wide Area Network | The global internet |
+| PAN | Personal Area Network | Bluetooth earphones |
+
+### Network Metrics
+| Metric | Definition |
+|---|---|
+| Latency | Time for data to travel from source to destination |
+| Bandwidth | Amount of data that can travel in one second |
+| Throughput | Actual real-world internet speed |
+| Jitter | Fluctuations and instability in network connection |
+
+### Network Topologies
+| Topology | Description | Real-world use |
+|---|---|---|
+| Star | All devices connect to a central router/hub | Home Wi-Fi |
+| Bus | Devices connect sequentially to a single cable | School computer labs |
+| Ring | Systems connect in a continuous circle | Industrial machines |
+| Mesh | Every device connects to every other device | Military communications |
+
+---
+
+## Models and Encapsulation
+
+### OSI Model (7 Layers)
+| Layer | Name | Function |
+|---|---|---|
+| 7 | Application | User interface |
+| 6 | Presentation | Data formatting and encryption |
+| 5 | Session | Checks communication channel is open |
+| 4 | Transport | TCP and UDP data delivery |
+| 3 | Network | IP addresses and routing |
+| 2 | Data Link | MAC addresses |
+| 1 | Physical | Cables, routers, hardware |
+
+### TCP/IP Model (4 Layers)
+Application → Transport → Internet → Network Access
+
+Combines OSI layers 5, 6, 7 into one Application layer and OSI layers 1, 2 into Network Access.
+
+### Encapsulation and Decapsulation
+- **Encapsulation** — data receives a header at each layer as it travels (like adding tape and a label to a parcel)
+- **Decapsulation** — headers are removed at the destination to read the data
+
+---
+
+## Physical Hardware and Cables
+
+### Cable Types
+| Cable | Speed | Notes |
+|---|---|---|
+| Copper | Up to 100MB | Traditional wiring |
+| Fiber | Up to 10GB | Uses light rays |
+| AUX / Advanced Copper | 10–100GB | Special core design manages heat |
+
+### Cable Standards
+| Standard | Best for |
+|---|---|
+| Cat5 / Cat5e | Small offices, 60–100 meters |
+| Cat6 | Large offices up to 5000 systems, excellent latency |
+| Cat6E | Heavy load balancing and server connections |
+
+### Hardware Devices
+| Device | Function |
+|---|---|
+| Hub | Outdated multiport repeater — broadcasts to all devices |
+| Switch (Managed) | Routes data via MAC addresses, configurable, prioritizes traffic |
+| Switch (Unmanaged) | Simple plug-and-play |
+| Router | Connects local network to ISP and internet |
+| Bridge | Connects physical and virtual networks |
+
+---
+
+## Addressing — MAC and IP
+
+### MAC Address
+- Permanent physical hardware address (Wi-Fi card, Bluetooth card)
+- Cannot be physically altered
+- Used for device tracking
+
+### IP Address
+- Unique identifier for devices on a network
+- **IPv4** — 32-bit, four octets (e.g. 127.0.0.1), ~4 billion combinations
+- **IPv6** — 128-bit alphanumeric, infinite combinations, better security
+
+### IP Classes
+| Class | Range | Used by |
+|---|---|---|
+| A | 0–127 | Large ISPs |
+| B | 128–191 | Cities, medium networks |
+| C | 192–223 | Small/home networks |
+| D | — | Multicast |
+| E | — | Scientists and testing |
+
+### Static vs Dynamic IP
+- **Static** — never changes, used for DNS and servers
+- **Dynamic** — assigned randomly by DHCP from a pool
+
+### ARP — Address Resolution Protocol
+Translates IP addresses into MAC addresses using request and reply.
+**ARP Spoofing** — attacker sends fake ARP requests to intercept data
+
+### VLAN — Virtual LAN
+Logically divides a single physical network into multiple separated networks using 802.1Q tagging.
+Example: isolating HR, Dev, and Sales departments on the same physical network.
+
+---
+
+## Routing, NAT, and Global Connectivity
+
+- **NAT** — converts private IP to public IP for internet communication
+- **PAT** — upgraded NAT, assigns multiple port identities to a single public IP allowing multitasking
+- **Routing Table** — routers evaluate Next Hop and Metric (cost/efficiency) to decide the best path
+
+### Routing Protocols
+| Protocol | Function |
+|---|---|
+| OSPF | Finds shortest and fastest path using Link State Advertisements |
+| EIGRP | Hybrid protocol evaluating bandwidth, delay, load, and reliability |
+| IS-IS | Massive enterprise backbone routing, hierarchical and scalable |
+| BGP | Global internet protocol connecting Autonomous Systems across ISPs worldwide |
+
+---
+
+## Transport Layer and Ports
+
+### TCP vs UDP
+| Protocol | Method | Use case |
+|---|---|---|
+| TCP | Three-Way Handshake (SYN, SYN-ACK, ACK) — guaranteed delivery | Secure communication |
+| UDP | No handshake — fast, no delivery guarantee | Streaming, VoIP, gaming |
+
+### Data Fragmentation
+When a file exceeds the MTU (Maximum Transmission Unit) it is broken into smaller packets, sent across the network, and reassembled at the destination.
+
+### Ports
+- Over 56,000 ports available
+- Around 1,000 commonly active (e.g. HTTP port 80, FTP port 21)
+- Virtual endpoints that sort data for specific applications
+
+---
+
+## Security — VPNs, IPsec, and Segmentation
+
+### VPN — Virtual Private Network
+Encrypts data, bypasses geo-blocks, and provides secure remote access to corporate networks.
+
+### IPsec
+Used for Site-to-Site VPN connections. Ensures:
+- **Security** — encrypts and hides data
+- **Integrity** — prevents data from being modified in transit
+- **Authenticity** — ensures data reaches the correct recipient
+
+### SSL/TLS
+Browser-based encryption between client and web server. No heavy hardware required.
+
+### Micro-segmentation
+Deeply isolates servers and Virtual Machines inside a data center. If an attacker breaches one server, micro-segmentation blocks lateral movement to others.
+
+---
+
+## Data Center and Cloud Architecture
+
+### Traditional 3-Tier Architecture
+Core → Aggregation → Access layers. Predictable but slow to scale.
+
+### Spine-Leaf Architecture
+Leaf switches connect directly to spine switches. Low latency, high scalability, ideal for East-West traffic (server to server communication inside the data center).
+
+**Note:** North-South traffic = communication between client and server.
+
+### VXLAN and EVPN
+Expands VLAN limitations to support millions of IDs in massive data centers. Routes traffic via UDP tunnels without physical hardware disruption.
+
+### Cloud Networking
+Built on:
+- **VPCs / VNets** — virtual private clouds
+- **Subnets** — divide the VPC
+- **Route Tables** — manage traffic paths
+- **Security Groups / NACLs** — act as digital gates controlling inbound and outbound access
+
+---
+
+## Network Automation and Programmability
+
+**Why automate?** Manual configuration is slow, repetitive, and error-prone.
+
+- **REST and NETCONF APIs** — push configuration updates across thousands of devices simultaneously
+- **Infrastructure as Code (IaC)** — manage networks using scripts instead of manual hardware setup
+- **Terraform** — deploys network changes using scripts and Git repositories
+- **Ansible** — open-source configuration tool by Michael DeHaan (2012), maintained by RedHat
+- **Intent-Based Networking** — upcoming AI-driven approach that automates and predicts network operations
+
+---
+
+*Notes by Shahid Nazir *
